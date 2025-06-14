@@ -1,4 +1,4 @@
-const mongoose = reuqire('mongoose'); 
+const mongoose = require('mongoose'); 
 const bcrypt = require('bcrypt') ; 
 const jwt = require('jsonwebtoken') ; 
 
@@ -12,21 +12,21 @@ const userSchema = new mongoose.Schema({
         lastname:{
             type: String,
             minlength: [3, 'First name must be atleast 3 characters long'],
-        },
-        email:{
-            type: String,
-            required: true,
-            unique: true,
-            minlength: [5, 'Email must be atleast 5 characters long']
-        },
-        password:{
-            type: String,
-            required: true,
-            select: false
-        },
-        socketId: {
-            type: String
         }
+    },
+    email:{
+        type: String,
+        required: true,
+        unique: true,
+        minlength: [5, 'Email must be atleast 5 characters long']
+    },
+    password:{
+        type: String,
+        required: true,
+        select: false
+    },
+    socketId: {
+        type: String
     }
 })
 
