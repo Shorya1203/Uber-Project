@@ -108,3 +108,104 @@ Invalid Email:
 - First name must be at least 3 characters long
 - Password must be at least 6 characters long
 - All required fields must be provided
+
+## Login User
+Login an existing user.
+
+### Endpoint
+```
+POST /users/login
+```
+
+### Request Body
+```json
+{
+  "email": "string",      // required, valid email format
+  "password": "string"    // required, min 6 characters
+}
+```
+
+### Response
+
+#### Success Response
+- **Status Code**: 200 (OK)
+- **Content**:
+```json
+{
+  "token": "JWT_TOKEN",
+  "user": {
+    "fullname": {
+      "firstname": "string",
+      "lastname": "string"
+    },
+    "email": "string",
+    "_id": "string"
+  }
+}
+```
+
+#### Error Responses
+
+**Authentication Error**
+- **Status Code**: 401 (Unauthorized)
+- **Content**:
+```json
+{
+  "message": "Invalid Email or password"
+}
+```
+
+**Validation Error**
+- **Status Code**: 400 (Bad Request)
+- **Content**:
+```json
+{
+  "errors": [
+    {
+      "type": "field",
+      "value": "invalid-email",
+      "msg": "Invalid Email",
+      "path": "email",
+      "location": "body"
+    }
+  ]
+}
+```
+
+### Example Requests
+
+**Valid Login Request**
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "secret123"
+}
+```
+
+### Example Responses
+
+**Success Response Example**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "_id": "507f1f77bcf86cd799439011"
+  }
+}
+```
+
+**Error Response Example**
+```json
+{
+  "message": "Invalid Email or password"
+}
+```
+
+### Validation Rules
+- Email must be valid
+- Password must be at least 6 characters long
