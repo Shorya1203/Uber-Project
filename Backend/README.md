@@ -209,3 +209,150 @@ POST /users/login
 ### Validation Rules
 - Email must be valid
 - Password must be at least 6 characters long
+
+## Get User Profile
+Get the profile information of the authenticated user.
+
+### Endpoint
+```
+GET /users/profile
+```
+
+### Request
+- Method: GET
+- No request body required
+
+### Headers Required
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+or
+```
+Cookie: token=<JWT_TOKEN>
+```
+
+### Response
+
+#### Success Response
+- **Status Code**: 200 (OK)
+- **Content**:
+```json
+{
+  "fullname": {
+    "firstname": "string",
+    "lastname": "string"
+  },
+  "email": "string",
+  "_id": "string",
+  "socketId": "string"
+}
+```
+
+#### Error Responses
+
+**Authentication Error**
+- **Status Code**: 401 (Unauthorized)
+- **Content**:
+```json
+{
+  "message": "Access denied. No token provided."
+}
+```
+
+**User Not Found**
+- **Status Code**: 404 (Not Found)
+- **Content**:
+```json
+{
+  "message": "User not found"
+}
+```
+
+### Example Response
+
+**Success Example**
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "_id": "507f1f77bcf86cd799439011",
+  "socketId": null
+}
+```
+
+## Logout User
+Logout the currently authenticated user and invalidate the token.
+
+### Endpoint
+```
+GET /users/logout
+```
+
+### Request
+- Method: GET
+- No request body required
+
+### Headers Required
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+or
+```
+Cookie: token=<JWT_TOKEN>
+```
+
+### Response
+
+#### Success Response
+- **Status Code**: 200 (OK)
+- **Content**:
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+
+#### Error Responses
+
+**Authentication Error**
+- **Status Code**: 401 (Unauthorized)
+- **Content**:
+```json
+{
+  "message": "Access denied. No token provided."
+}
+```
+
+**Token Blacklisted**
+- **Status Code**: 401 (Unauthorized)
+- **Content**:
+```json
+{
+  "message": "Token is blacklisted. Please log in again."
+}
+```
+
+### Example Response
+
+**Success Example**
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+
+**Invalid Token Example**
+```json
+{
+  "message": "Invalid token."
+}
+```
+
+### Notes
+- The logout endpoint will:
+  - Clear the token cookie if present
+  - Add the token to blacklist
+  - Invalidate the current session
