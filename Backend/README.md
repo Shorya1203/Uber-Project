@@ -91,7 +91,6 @@ POST /users/register
 Invalid Email:
 ```json
 {
-{
     "errors": [
         {
             "type": "field",
@@ -101,7 +100,6 @@ Invalid Email:
             "location": "body"
         }
     ]
-}
 }
 ```
 
