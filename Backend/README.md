@@ -55,6 +55,56 @@ POST /users/register
 }
 ```
 
+### Example Requests
+
+**Valid Request**
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "password": "secret123"
+}
+```
+
+### Example Responses
+
+**Success Response Example**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "_id": "507f1f77bcf86cd799439011"
+  }
+}
+```
+
+**Error Response Examples**
+
+Invalid Email:
+```json
+{
+{
+    "errors": [
+        {
+            "type": "field",
+            "value": "23",
+            "msg": "Password must be atleast 6 characters long",
+            "path": "password",
+            "location": "body"
+        }
+    ]
+}
+}
+```
+
 ### Validation Rules
 - Email must be valid
 - First name must be at least 3 characters long
